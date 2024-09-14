@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ռօռɛɛɖ2ӄռօա</title>
+    <style>
+        body {
+            background-color: #001100;
+            color: #00FF00;
+            font-family: monospace;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .matrix-effect {
+            position: fixed; /* Fixed to take the entire screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .matrix-effect canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #002200;
+            border: 2px solid #00FF00;
+            box-shadow: 0 0 15px #00FF00;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        footer {
+            margin-top: 20px;
+            color: #00FF00;
+            padding: 10px 0;
+            z-index: 2;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-effect">
+        <canvas id="matrixCanvasMiddle"></canvas>
+    </div>
+
+    <div class="container">
+        <div class="logo-text">
+            ռօռɛɛɖ2ӄռօա
+        </div>
+    </div>
+
+    <footer>
+        &copy; ռօռɛɛɖ2ӄռօա 2024 - Tous droits réservés.
+    </footer>
+
+    <script>
+        // Matrix effect script for the canvas
+        const canvasMiddle = document.getElementById('matrixCanvasMiddle');
+        const ctxMiddle = canvasMiddle.getContext('2d');
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const fontSize = 14;
+        let columnsMiddle;
+        let dropsMiddle;
+
+        function resizeCanvasMiddle() {
+            canvasMiddle.width = window.innerWidth;
+            canvasMiddle.height = window.innerHeight;
+            columnsMiddle = canvasMiddle.width / fontSize;
+            dropsMiddle = Array(Math.floor(columnsMiddle)).fill(1);
+        }
+
+        function drawMatrixMiddle() {
+            ctxMiddle.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctxMiddle.fillRect(0, 0, canvasMiddle.width, canvasMiddle.height);
+            ctxMiddle.fillStyle = '#00FF00';
+            ctxMiddle.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < dropsMiddle.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctxMiddle.fillText(text, i * fontSize, dropsMiddle[i] * fontSize);
+                if (dropsMiddle[i] * fontSize > canvasMiddle.height && Math.random() > 0.975) {
+                    dropsMiddle[i] = 0;
+                }
+                dropsMiddle[i]++;
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvasMiddle);
+        resizeCanvasMiddle();
+        setInterval(drawMatrixMiddle, 35);
+    </script>
+</body>
+</html>
